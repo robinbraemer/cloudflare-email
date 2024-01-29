@@ -9,7 +9,7 @@ const router = Router();
 // POST /api/email
 router.post<EmailRequest>('/api/email', AuthMiddleware, EmailSchemaMiddleware, async (request, environment) => {
 	const email = request.email as IEmail;
-
+	console.log(JSON.stringify(email))
 	try {
 		await Email.send(email, environment);
 	} catch (e) {
