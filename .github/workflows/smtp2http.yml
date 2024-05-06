@@ -2,18 +2,19 @@ on:
   repository_dispatch:
   push:
     paths:
-      - 'http2smtp/**'
+      - 'smtp2http/**'
+      - '.github/workflows/smtp2http.yml'
     branches:
       - main
   workflow_dispatch:
 
 env:
   REGISTRY: ghcr.io
-  REPOSITORY: ${{ github.repository }}/http2smtp
+  REPOSITORY: ${{ github.repository }}/smtp2http
 
 defaults:
   run:
-    working-directory: ./http2smtp
+    working-directory: ./smtp2http
 
 jobs:
   lint:
