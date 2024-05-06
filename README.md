@@ -16,7 +16,7 @@
 
 Or deploy directly to Cloudflare and enable Github Actions
 
-[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/dimaguy/cloudflare-email)
+[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/robinbraemer/cloudflare-email)
 
 ## Setup SPF
 
