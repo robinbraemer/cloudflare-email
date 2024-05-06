@@ -26,13 +26,14 @@ jobs:
       - name: Setup Go
         uses: actions/setup-go@v5
         with:
-          go-version-file: go.mod
+          go-version-file: smtp2http/go.mod
 
       - name: golangci-lint
         uses: golangci/golangci-lint-action@v4
         with:
           version: latest
           args: --timeout 3m0s
+          working-directory: ./smtp2http
   test:
     strategy:
       fail-fast: false
@@ -47,10 +48,10 @@ jobs:
         uses: actions/setup-go@v5
         with:
           cache: true
-          go-version-file: go.mod
+          go-version-file: smtp2http/go.mod
 
       - name: Test
-        run: go test -v ./...
+        run: (cd smtp2http && go test -v ./...)
   build:
     if: ( github.event_name == 'push' && ( github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/') ) )
     needs:
@@ -89,8 +90,8 @@ jobs:
       - name: Build and push docker image
         uses: docker/build-push-action@v5
         with:
-          context: .
-          file: ./Dockerfile
+          context: ./smtp2http
+          file: ./smtp2http/Dockerfile
           push: true
           platforms: linux/amd64,linux/arm64,windows/amd64,windows/arm64,darwin/amd64,darwin/arm64,linux/arm/v7,linux/arm/v8,linux/s390x
           cache-from: type=registry,ref=${{ steps.image-ref.outputs.image_latest }}
@@ -114,11 +115,13 @@ jobs:
         with:
           cache: true
           go-version-file: go.mod
+          working-directory: ./smtp2http
 
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v5
         with:
           version: latest
           args: release --rm-dist
+          workdir: ./smtp2http
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
