@@ -51,7 +51,7 @@ jobs:
           go-version-file: smtp2http/go.mod
 
       - name: Test
-        run: (cd smtp2http && go test -v ./...)
+        run: go test -v ./...
   build:
     if: ( github.event_name == 'push' && ( github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/') ) )
     needs:
